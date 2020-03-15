@@ -31,11 +31,7 @@ class _MyAppState extends State<MyApp> {
             ],
 
           )
-          ),
-        appBar: AppBar(
-          title: Text('Material App Bar'),
-        ),
-        
+          ),        
       ),
     );
   }
@@ -65,7 +61,9 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
               MaterialPageRoute(
                 builder: (BuildContext context) => LoginPage()));
             
-          }});});
+          }
+          
+          });});
           controller.repeat();
         }
 
