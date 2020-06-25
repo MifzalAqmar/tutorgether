@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutorgether/registeruser.dart';
- 
+import 'package:tutorgether/mainpage.dart';
 void main() => runApp(LoginPage());
  
  bool _isChecked = true;
@@ -8,6 +8,7 @@ void main() => runApp(LoginPage());
   String _email = "";
   final TextEditingController _pscontroller = TextEditingController();
   String _pass = "";
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -61,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.black,
                       textColor: Colors.white,
                       elevation: 20,
-                      onPressed: _onPress,
+                      onPressed: _onSkip,
 
 
                     ),
@@ -80,12 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                   
           ],)
       )
-    );
-
-  }
-  void _onPress() {
-    print(_pscontroller);
-    print(_emcontroller);
+    ); 
   }
   void _onChange(bool value) {
     setState(() {
@@ -97,4 +93,8 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.push(
       context, MaterialPageRoute(builder: (context) => RegisterUser()));
   }
-}
+  void _onSkip() {
+    Navigator.push(
+      context, MaterialPageRoute(builder: (context) => MainPage()
+    ));
+  }}
