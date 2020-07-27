@@ -12,6 +12,7 @@ import 'package:toast/toast.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:recase/recase.dart';
+import 'storecredit.dart';
 
 class ProfilePage extends StatefulWidget {
   final User user;
@@ -64,22 +65,22 @@ class _ProfilePageState extends State<ProfilePage> {
                         GestureDetector(
                           onTap: _takePicture,
                           child: Container(
-                            height: screenHeight / 4.8,
-                            width: screenWidth / 3.2,
+                            height: screenHeight / 6,
+                            width: screenWidth / 3.4,
                             decoration: new BoxDecoration(
                               shape: BoxShape.circle,
-                              //border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.orange),
                             ),
-                            child: CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              imageUrl: server +
-                                  "/profileimages/${widget.user.email}.jpg?",
-                              placeholder: (context, url) => new SizedBox(
-                                  height: 10.0,
-                                  width: 10.0,
-                                  child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) =>
-                                  new Icon(MdiIcons.cameraIris, size: 64.0),
+                            child: ClipOval(
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl: server +
+                                    "/profileimages/${widget.user.email}.jpg?",
+                                placeholder: (context, url) => new SizedBox(
+                                    child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    new Icon(MdiIcons.cameraIris, size: 64.0),
+                              ),
                             ),
                           ),
                         ),
@@ -193,6 +194,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 2,
                       color: Colors.orange,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Text(
+                              "Store Credit",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.white),
+                            ),
+                            Text(widget.user.credit,
+                                style: TextStyle(color: Colors.orange))
+                          ],
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -209,11 +228,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Divider(
               height: 2,
-              color: Colors.brown,
+              color: Colors.orange,
             ),
             Expanded(
-
-                //color: Colors.red,
                 child: ListView(
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                     shrinkWrap: true,
@@ -222,21 +239,43 @@ class _ProfilePageState extends State<ProfilePage> {
                     onPressed: changeName,
                     child: Text("CHANGE YOUR NAME"),
                   ),
+                  Divider(
+                    height: 2,
+                  ),
                   MaterialButton(
                     onPressed: changePassword,
                     child: Text("CHANGE YOUR PASSWORD"),
+                  ),
+                  Divider(
+                    height: 2,
                   ),
                   MaterialButton(
                     onPressed: changePhone,
                     child: Text("CHANGE YOUR PHONE"),
                   ),
+                  Divider(
+                    height: 2,
+                  ),
                   MaterialButton(
                     onPressed: _gotologinPage,
                     child: Text("GO LOGIN PAGE"),
                   ),
+                  Divider(
+                    height: 2,
+                  ),
                   MaterialButton(
                     onPressed: _registerAccount,
                     child: Text("REGISTER NEW ACCOUNT"),
+                  ),
+                  Divider(
+                    height: 2,
+                  ),
+                  MaterialButton(
+                    onPressed: buyStoreCredit,
+                    child: Text("BUY STORE CREDIT"),
+                  ),
+                  Divider(
+                    height: 2,
                   ),
                 ])),
           ],
@@ -266,13 +305,13 @@ class _ProfilePageState extends State<ProfilePage> {
         "email": widget.user.email,
       }).then((res) {
         print(res.body);
-        if (res.body == "success") {
+        if (res.body == " success") {
           setState(() {
             DefaultCacheManager manager = new DefaultCacheManager();
             manager.emptyCache();
           });
         } else {
-          Toast.show("Tidak berjaya", context,
+          Toast.show("Failed", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         }
       }).catchError((err) {
@@ -282,7 +321,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void changeName() {
-    if (widget.user.email == "unregistered") {
+    if (widget.user.email == "unregistered@tutorgether.com") {
       Toast.show("Please register to use this function", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -341,7 +380,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   _changeName(String name) {
-    if (widget.user.email == "unregistered") {
+    if (widget.user.email == "unregistered@tutorgether.com") {
       Toast.show("Please register to use this function", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -357,7 +396,7 @@ class _ProfilePageState extends State<ProfilePage> {
       "email": widget.user.email,
       "name": rc.titleCase.toString(),
     }).then((res) {
-      if (res.body == "success") {
+      if (res.body == " success") {
         print('in success');
 
         setState(() {
@@ -374,7 +413,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void changePassword() {
-    if (widget.user.email == "unregistered") {
+    if (widget.user.email == "unregistered@tutorgether.com") {
       Toast.show("Please register to use this function", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -459,7 +498,7 @@ class _ProfilePageState extends State<ProfilePage> {
       "oldpassword": pass1,
       "newpassword": pass2,
     }).then((res) {
-      if (res.body == "success") {
+      if (res.body == " success") {
         print('in success');
         setState(() {
           widget.user.password = pass2;
@@ -475,7 +514,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void changePhone() {
-    if (widget.user.email == "unregistered") {
+    if (widget.user.email == "unregistered@tutorgether.com") {
       Toast.show("Please register to use this function", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -538,7 +577,7 @@ class _ProfilePageState extends State<ProfilePage> {
       "email": widget.user.email,
       "phone": phone,
     }).then((res) {
-      if (res.body == "success") {
+      if (res.body == " success") {
         print('in success');
 
         setState(() {
@@ -664,6 +703,120 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         );
       },
+    );
+  }
+
+  void buyStoreCredit() {
+    if (widget.user.email == "unregistered@tutorgether.com") {
+      Toast.show("Please register to use this function", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+    TextEditingController creditController = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              title: new Text(
+                "Buy Store Credit?",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              content: new TextField(
+                  style: TextStyle(
+                    color: Colors.orange,
+                  ),
+                  controller: creditController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Enter RM',
+                    icon: Icon(
+                      Icons.attach_money,
+                      color: Colors.orange,
+                    ),
+                  )),
+              actions: <Widget>[
+                new FlatButton(
+                    child: new Text(
+                      "Yes",
+                      style: TextStyle(
+                        color: Colors.orange,
+                      ),
+                    ),
+                    onPressed: () =>
+                        _buyCredit(creditController.text.toString())),
+                new FlatButton(
+                  child: new Text(
+                    "No",
+                    style: TextStyle(
+                      color: Colors.orange,
+                    ),
+                  ),
+                  onPressed: () => {Navigator.of(context).pop()},
+                ),
+              ]);
+        });
+  }
+
+  _buyCredit(String cr) {
+    print("RM " + cr);
+    if (cr.length <= 0) {
+      Toast.show("Please enter correct amount", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        title: new Text(
+          'Buy store credit RM ' + cr,
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        content: new Text(
+          'Are you sure?',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+                Navigator.of(context).pop(false);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => StoreCreditPage(
+                              user: widget.user,
+                              val: cr,
+                            )));
+              },
+              child: Text(
+                "Ok",
+                style: TextStyle(
+                  color: Color.fromRGBO(101, 255, 218, 50),
+                ),
+              )),
+          MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+                Navigator.of(context).pop(false);
+              },
+              child: Text(
+                "Cancel",
+                style: TextStyle(
+                  color: Color.fromRGBO(101, 255, 218, 50),
+                ),
+              )),
+        ],
+      ),
     );
   }
 }

@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    print("Hello i'm in INITSTATE");
+    print("INITSTATE");
     this.loadPref();
   }
 
@@ -50,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget upperHalf(BuildContext context) {
     return Container(
-      height: screenHeight / 1.4,
       child: Image.asset(
         'assets/images/mainpage.jpg',
         fit: BoxFit.cover,
@@ -90,7 +89,11 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        icon: Icon(Icons.email),
+                        fillColor: Colors.black,
+                        icon: Icon(
+                          Icons.email,
+                          color: Colors.orange,
+                        ),
                       )),
                   TextField(
                     style: TextStyle(
@@ -99,7 +102,10 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _passEditingController,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      icon: Icon(Icons.lock),
+                      icon: Icon(
+                        Icons.lock,
+                        color: Colors.orange,
+                      ),
                     ),
                     obscureText: true,
                   ),
@@ -148,7 +154,10 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("Don't have an account? ",
-                  style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               GestureDetector(
                 onTap: _registerUser,
                 child: Text(
@@ -165,7 +174,10 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("Forgot your password ",
-                  style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               GestureDetector(
                 onTap: _forgotPassword,
                 child: Text(
@@ -225,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
         print(res.body);
         var string = res.body;
         List userdata = string.split(",");
-        if (userdata[0] == "success") {
+        if (userdata[0] == " success") {
           User _user = new User(
               name: userdata[1],
               email: _email,
@@ -288,7 +300,10 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(
                     decoration: InputDecoration(
                   labelText: 'Email',
-                  icon: Icon(Icons.email),
+                  icon: Icon(
+                    Icons.email,
+                    color: Colors.orange,
+                  ),
                 ))
               ],
             ),

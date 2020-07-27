@@ -459,7 +459,7 @@ class _EditBookState extends State<EditBook> {
       }).then((res) {
         print(res.body);
         pr.dismiss();
-        if (res.body == "success") {
+        if (res.body == " success") {
           Toast.show("Update success", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           Navigator.of(context).pop();
@@ -481,7 +481,7 @@ class _EditBookState extends State<EditBook> {
       }).then((res) {
         print(res.body);
         pr.dismiss();
-        if (res.body == "success") {
+        if (res.body == " success") {
           Toast.show("Update success", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           Navigator.of(context).pop();

@@ -399,7 +399,7 @@ class _NewBookState extends State<NewBook> {
     if (!mounted) return;
 
     setState(() {
-      if (barcodeScanRes == "-1") {
+      if (barcodeScanRes == " -1") {
         _scanBarcode = "click here to scan";
       } else {
         _scanBarcode = barcodeScanRes;
@@ -429,7 +429,7 @@ class _NewBookState extends State<NewBook> {
   }
 
   void _insertNewBook() {
-    if (_scanBarcode == "click here to scan") {
+    if (_scanBarcode == " click here to scan") {
       Toast.show("Please scan book id", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -519,12 +519,12 @@ class _NewBookState extends State<NewBook> {
     }).then((res) {
       print(res.body);
       pr.dismiss();
-      if (res.body == "found") {
+      if (res.body == " found") {
         Toast.show("Book id already in database", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         return;
       }
-      if (res.body == "success") {
+      if (res.body == " success") {
         Toast.show("Insert success", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         Navigator.of(context).pop();

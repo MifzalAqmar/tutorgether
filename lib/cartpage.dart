@@ -573,7 +573,7 @@ class _CartPageState extends State<CartPage> {
     }).then((res) {
       print(res.body);
       pr.dismiss();
-      if (res.body == "Cart Empty") {
+      if (res.body == " Cart Empty") {
         //Navigator.of(context).pop(false);
         widget.user.quantity = "0";
         Navigator.push(
@@ -609,7 +609,7 @@ class _CartPageState extends State<CartPage> {
   _updateCart(int index, String op) {
     int curquantity = int.parse(cartData[index]['quantity']);
     int quantity = int.parse(cartData[index]['cquantity']);
-    if (op == "add") {
+    if (op == " add") {
       quantity++;
       if (quantity > (curquantity - 2)) {
         Toast.show("Quantity not available", context,
@@ -617,7 +617,7 @@ class _CartPageState extends State<CartPage> {
         return;
       }
     }
-    if (op == "remove") {
+    if (op == " remove") {
       quantity--;
       if (quantity == 0) {
         _deleteCart(index);
@@ -631,7 +631,7 @@ class _CartPageState extends State<CartPage> {
       "quantity": quantity.toString()
     }).then((res) {
       print(res.body);
-      if (res.body == "success") {
+      if (res.body == " success") {
         Toast.show("Cart Updated", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         _loadCart();
@@ -666,7 +666,7 @@ class _CartPageState extends State<CartPage> {
                 }).then((res) {
                   print(res.body);
 
-                  if (res.body == "success") {
+                  if (res.body == " success") {
                     _loadCart();
                   } else {
                     Toast.show("Failed", context,
@@ -1053,7 +1053,7 @@ class _CartPageState extends State<CartPage> {
                 }).then((res) {
                   print(res.body);
 
-                  if (res.body == "success") {
+                  if (res.body == " success") {
                     _loadCart();
                   } else {
                     Toast.show("Failed", context,

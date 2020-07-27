@@ -37,7 +37,6 @@ class _RegisterUserState extends State<RegisterUser> {
 
   Widget upperHalf(BuildContext context) {
     return Container(
-      height: screenHeight / 1.4,
       child: Image.asset(
         'assets/images/login.jpg',
         fit: BoxFit.cover,
@@ -77,7 +76,10 @@ class _RegisterUserState extends State<RegisterUser> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Name',
-                        icon: Icon(Icons.person),
+                        icon: Icon(
+                          Icons.person,
+                          color: Colors.orange,
+                        ),
                       )),
                   TextField(
                       style: TextStyle(
@@ -87,7 +89,10 @@ class _RegisterUserState extends State<RegisterUser> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        icon: Icon(Icons.email),
+                        icon: Icon(
+                          Icons.email,
+                          color: Colors.orange,
+                        ),
                       )),
                   TextField(
                       style: TextStyle(
@@ -97,7 +102,10 @@ class _RegisterUserState extends State<RegisterUser> {
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         labelText: 'Phone',
-                        icon: Icon(Icons.phone),
+                        icon: Icon(
+                          Icons.phone,
+                          color: Colors.orange,
+                        ),
                       )),
                   TextField(
                     style: TextStyle(
@@ -106,7 +114,10 @@ class _RegisterUserState extends State<RegisterUser> {
                     controller: _passEditingController,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      icon: Icon(Icons.lock),
+                      icon: Icon(
+                        Icons.lock,
+                        color: Colors.orange,
+                      ),
                     ),
                     obscureText: true,
                   ),
@@ -154,7 +165,10 @@ class _RegisterUserState extends State<RegisterUser> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("Already register? ",
-                  style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               GestureDetector(
                 onTap: _loginPage,
                 child: Text(
@@ -214,7 +228,7 @@ class _RegisterUserState extends State<RegisterUser> {
       "password": password,
       "phone": phone,
     }).then((res) {
-      if (res.body == "success") {
+      if (res.body == " success") {
         Navigator.pop(context,
             MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
         Toast.show("Registration success", context,

@@ -126,7 +126,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage> {
     await http
         .post(urlLoadJobs, body: {"email": widget.user.email}).then((res) {
       print(res.body);
-      if (res.body == "nodata") {
+      if (res.body == " nodata") {
         setState(() {
           _paymentdata = null;
           titlecenter = "No Previous Payment";

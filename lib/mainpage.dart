@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
             title: Text(
               'Books List',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
             actions: <Widget>[
@@ -235,8 +235,7 @@ class _MainPageState extends State<MainPage> {
                                     Column(
                                       children: <Widget>[
                                         FlatButton(
-                                            onPressed: () =>
-                                                _sortItem("Others"),
+                                            onPressed: () => _sortItem("Other"),
                                             color: Colors.orange,
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
@@ -247,7 +246,7 @@ class _MainPageState extends State<MainPage> {
                                                   color: Colors.black,
                                                 ),
                                                 Text(
-                                                  "Others",
+                                                  "Other",
                                                   style: TextStyle(
                                                       color: Colors.black),
                                                 )
@@ -274,12 +273,15 @@ class _MainPageState extends State<MainPage> {
                                   height: 30,
                                   child: TextField(
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black,
                                       ),
                                       autofocus: false,
                                       controller: _prdController,
                                       decoration: InputDecoration(
-                                          icon: Icon(Icons.search),
+                                          icon: Icon(
+                                            Icons.search,
+                                            color: Colors.orange,
+                                          ),
                                           border: OutlineInputBorder())),
                                 )),
                                 Flexible(
@@ -292,7 +294,10 @@ class _MainPageState extends State<MainPage> {
                                         elevation: 5,
                                         child: Text(
                                           "Search Book",
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         )))
                               ],
                             ),
@@ -374,6 +379,7 @@ class _MainPageState extends State<MainPage> {
                                                   ),
                                                 ),
                                                 MaterialButton(
+                                                  color: Colors.orange,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -383,8 +389,6 @@ class _MainPageState extends State<MainPage> {
                                                   child: Text(
                                                     'Add to Cart',
                                                   ),
-                                                  color: Color.fromRGBO(
-                                                      101, 255, 218, 50),
                                                   textColor: Colors.black,
                                                   elevation: 10,
                                                   onPressed: () =>
@@ -407,7 +411,7 @@ class _MainPageState extends State<MainPage> {
                 Toast.show("Admin mode!!!", context,
                     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                 return;
-              } else if (widget.user.quantity == "0") {
+              } else if (widget.user.quantity == " 0") {
                 Toast.show("Cart empty", context,
                     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                 return;
@@ -433,11 +437,11 @@ class _MainPageState extends State<MainPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.black,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: new Container(
-              color: Colors.white,
+              color: Colors.black,
               height: screenHeight / 2.2,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -463,7 +467,7 @@ class _MainPageState extends State<MainPage> {
   void _loadData() async {
     String urlLoadJobs = server + "/php/load_books.php";
     await http.post(urlLoadJobs, body: {}).then((res) {
-      if (res.body == "nodata") {
+      if (res.body == " nodata") {
         cartquantity = "0";
         titlecenter = "No book found";
         setState(() {
@@ -486,7 +490,7 @@ class _MainPageState extends State<MainPage> {
     await http.post(urlLoadJobs, body: {
       "email": widget.user.email,
     }).then((res) {
-      if (res.body == "nodata") {
+      if (res.body == " nodata") {
       } else {
         widget.user.quantity = res.body;
       }
@@ -504,13 +508,16 @@ class _MainPageState extends State<MainPage> {
             accountEmail: Text(widget.user.email),
             otherAccountsPictures: <Widget>[
               Text("RM " + widget.user.credit,
-                  style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
             ],
             currentAccountPicture: CircleAvatar(
               backgroundColor:
                   Theme.of(context).platform == TargetPlatform.android
-                      ? Colors.white
-                      : Colors.white,
+                      ? Colors.black
+                      : Colors.black,
               child: Text(
                 widget.user.name.toString().substring(0, 1).toUpperCase(),
                 style: TextStyle(fontSize: 40.0),
@@ -584,7 +591,7 @@ class _MainPageState extends State<MainPage> {
               children: <Widget>[
                 Divider(
                   height: 2,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 Center(
                   child: Text(
@@ -609,24 +616,6 @@ class _MainPageState extends State<MainPage> {
                                         user: widget.user,
                                       )))
                         }),
-                ListTile(
-                  title: Text(
-                    "Customer Orders",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  trailing: Icon(Icons.arrow_forward),
-                ),
-                ListTile(
-                  title: Text(
-                    "Report",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  trailing: Icon(Icons.arrow_forward),
-                ),
               ],
             ),
           )
@@ -657,7 +646,7 @@ class _MainPageState extends State<MainPage> {
               title: new Text(
                 "Add " + bookdata[index]['name'] + " to Cart?",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
               content: Column(
@@ -666,7 +655,7 @@ class _MainPageState extends State<MainPage> {
                   Text(
                     "Select quantity of book",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   Row(
@@ -691,7 +680,7 @@ class _MainPageState extends State<MainPage> {
                           Text(
                             quantity.toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
                           FlatButton(
@@ -775,7 +764,7 @@ class _MainPageState extends State<MainPage> {
           "quantity": quantity.toString(),
         }).then((res) {
           print(res.body);
-          if (res.body == "failed") {
+          if (res.body == " failed") {
             Toast.show("Failed add to cart", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
             pr.dismiss();
@@ -815,7 +804,7 @@ class _MainPageState extends State<MainPage> {
       http.post(urlLoadJobs, body: {
         "type": type,
       }).then((res) {
-        if (res.body == "nodata") {
+        if (res.body == " nodata") {
           setState(() {
             bookdata = null;
             curtype = type;
@@ -856,7 +845,7 @@ class _MainPageState extends State<MainPage> {
           })
           .timeout(const Duration(seconds: 4))
           .then((res) {
-            if (res.body == "nodata") {
+            if (res.body == " nodata") {
               Toast.show("Book not found", context,
                   duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
               pr.dismiss();
@@ -895,7 +884,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   gotoCart() async {
-    if (widget.user.email == "unregistered") {
+    if (widget.user.email == "unregistered@tutorgether.com") {
       Toast.show("Please register to use...", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -903,7 +892,7 @@ class _MainPageState extends State<MainPage> {
       Toast.show("In Admin mode.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
-    } else if (widget.user.quantity == "0") {
+    } else if (widget.user.quantity == " 0") {
       Toast.show("Cart empty", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
@@ -928,13 +917,13 @@ class _MainPageState extends State<MainPage> {
             title: new Text(
               'Are you sure?',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
             content: new Text(
               'Do you want to exit?',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
             actions: <Widget>[

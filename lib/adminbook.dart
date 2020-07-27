@@ -233,7 +233,7 @@ class _AdminBookState extends State<AdminBook> {
                             Column(
                               children: <Widget>[
                                 FlatButton(
-                                    onPressed: () => _sortItem("Others"),
+                                    onPressed: () => _sortItem("Other"),
                                     color: Colors.orange,
                                     padding: EdgeInsets.all(10.0),
                                     child: Column(
@@ -244,7 +244,7 @@ class _AdminBookState extends State<AdminBook> {
                                           color: Colors.black,
                                         ),
                                         Text(
-                                          "Others",
+                                          "Other",
                                           style: TextStyle(color: Colors.black),
                                         )
                                       ],
@@ -737,7 +737,7 @@ class _AdminBookState extends State<AdminBook> {
     }).then((res) {
       print(res.body);
       pr.dismiss();
-      if (res.body == "success") {
+      if (res.body == " success") {
         Toast.show("Delete success", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         _loadData();

@@ -130,7 +130,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       "orderid": widget.order.orderid,
     }).then((res) {
       print(res.body);
-      if (res.body == "nodata") {
+      if (res.body == " nodata") {
         setState(() {
           _orderdetails = null;
           titlecenter = "No Previous Payment";

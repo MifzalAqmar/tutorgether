@@ -26,6 +26,13 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
+        cardColor: Colors.black,
+        toggleableActiveColor: Colors.orange,
+        buttonColor: Colors.orange,
+        primaryColor: Colors.orange,
+        unselectedWidgetColor: Colors.orange,
+        secondaryHeaderColor: Colors.orange,
+        accentColor: Colors.orange,
         textTheme: GoogleFonts.anaheimTextTheme(
           Theme.of(context).textTheme,
         ),
@@ -127,7 +134,7 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
       print(res.body);
       var string = res.body;
       List userdata = string.split(",");
-      if (userdata[0] == "success") {
+      if (userdata[0] == " success") {
         User _user = new User(
             name: userdata[1],
             email: email,
