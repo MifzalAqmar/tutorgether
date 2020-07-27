@@ -31,7 +31,7 @@ class _CartPageState extends State<CartPage> {
   bool _selfPickup = true;
   bool _storeCredit = false;
   bool _homeDelivery = false;
-  double _weight = 0.0, _totalprice = 0.0;
+  double _totalprice = 0.0;
   Position _currentPosition;
   String curaddress;
   Completer<GoogleMapController> _controller = Completer();
@@ -559,7 +559,6 @@ class _CartPageState extends State<CartPage> {
   }
 
   void _loadCart() {
-    _weight = 0.0;
     _totalprice = 0.0;
     amountpayable = 0.0;
     deliverycharge = 0.0;
@@ -588,15 +587,10 @@ class _CartPageState extends State<CartPage> {
         var extractdata = json.decode(res.body);
         cartData = extractdata["cart"];
         for (int i = 0; i < cartData.length; i++) {
-          _weight = double.parse(cartData[i]['weight']) *
-                  int.parse(cartData[i]['cquantity']) +
-              _weight;
           _totalprice = double.parse(cartData[i]['yourprice']) + _totalprice;
         }
-        _weight = _weight / 1000;
         amountpayable = _totalprice;
 
-        print(_weight);
         print(_totalprice);
       });
     }).catchError((err) {
@@ -900,32 +894,27 @@ class _CartPageState extends State<CartPage> {
   }
 
   void _updatePayment() {
-    _weight = 0.0;
     _totalprice = 0.0;
     amountpayable = 0.0;
     setState(() {
       for (int i = 0; i < cartData.length; i++) {
-        _weight = double.parse(cartData[i]['weight']) *
-                int.parse(cartData[i]['cquantity']) +
-            _weight;
         _totalprice = double.parse(cartData[i]['yourprice']) + _totalprice;
       }
-      _weight = _weight / 1000;
       print(_selfPickup);
       if (_selfPickup) {
         deliverycharge = 0.0;
       } else {
         if (_totalprice > 100) {
-          deliverycharge = 5.00;
+          deliverycharge = 0.00;
         } else {
-          deliverycharge = _weight * 0.5;
+          deliverycharge = 5.00;
         }
       }
       if (_homeDelivery) {
         if (_totalprice > 100) {
-          deliverycharge = 5.00;
+          deliverycharge = 0.00;
         } else {
-          deliverycharge = _weight * 0.5;
+          deliverycharge = 5.00;
         }
       }
       if (_storeCredit) {
@@ -935,7 +924,6 @@ class _CartPageState extends State<CartPage> {
         amountpayable = deliverycharge + _totalprice;
       }
       print("Dev Charge:" + deliverycharge.toStringAsFixed(3));
-      print(_weight);
       print(_totalprice);
     });
   }

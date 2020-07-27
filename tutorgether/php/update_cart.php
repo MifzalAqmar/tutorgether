@@ -10,7 +10,7 @@ $sqlupdate = "UPDATE CART SET CQUANTITY = '$quantity' WHERE EMAIL = '$email' AND
 
 if ($conn->query($sqlupdate) === true)
 {
-    echo "success";
+    echo "success,".$quantity;;
 }
 else
 {

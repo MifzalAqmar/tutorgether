@@ -448,7 +448,7 @@ class _AdminBookState extends State<AdminBook> {
     if (!mounted) return;
 
     setState(() {
-      if (barcodeScanRes == "-1") {
+      if (barcodeScanRes == " -1") {
         scanBId = "";
       } else {
         scanBId = barcodeScanRes;
@@ -464,7 +464,7 @@ class _AdminBookState extends State<AdminBook> {
       "bid": bid,
     }).then((res) {
       print(res.body);
-      if (res.body == "nodata") {
+      if (res.body == " nodata") {
         Toast.show("Not found", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       } else {
@@ -496,7 +496,7 @@ class _AdminBookState extends State<AdminBook> {
     if (!mounted) return;
 
     setState(() {
-      if (barcodeScanRes == "-1") {
+      if (barcodeScanRes == " -1") {
         scanBId = "";
       } else {
         scanBId = barcodeScanRes;
@@ -530,7 +530,7 @@ class _AdminBookState extends State<AdminBook> {
       http.post(urlLoadJobs, body: {
         "type": type,
       }).then((res) {
-        if (res.body == "nodata") {
+        if (res.body == " nodata") {
           setState(() {
             curtype = type;
             titlecenter = "No book found";
@@ -572,7 +572,7 @@ class _AdminBookState extends State<AdminBook> {
           })
           .timeout(const Duration(seconds: 4))
           .then((res) {
-            if (res.body == "nodata") {
+            if (res.body == " nodata") {
               Toast.show("Book not found", context,
                   duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
               pr.dismiss();
