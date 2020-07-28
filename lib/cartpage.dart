@@ -50,7 +50,6 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
     _getLocation();
-    //_getCurrentLocation();
     _loadCart();
   }
 
@@ -100,7 +99,6 @@ class _CartPageState extends State<CartPage> {
                                 child: InkWell(
                                   onLongPress: () => {print("Delete")},
                                   child: Card(
-                                    //color: Colors.yellow,
                                     elevation: 5,
                                     child: Column(
                                       children: <Widget>[
@@ -116,9 +114,7 @@ class _CartPageState extends State<CartPage> {
                                             child: Row(
                                           children: <Widget>[
                                             Container(
-                                              // color: Colors.red,
                                               width: screenWidth / 2,
-                                              // height: screenHeight / 3,
                                               child: Column(
                                                 children: <Widget>[
                                                   Row(
@@ -147,14 +143,11 @@ class _CartPageState extends State<CartPage> {
                                                 child: SizedBox(
                                                     width: 2,
                                                     child: Container(
-                                                      // height: screenWidth / 2,
                                                       color: Colors.grey,
                                                     ))),
                                             Expanded(
                                                 child: Container(
-                                              //color: Colors.blue,
                                               width: screenWidth / 2,
-                                              //height: screenHeight / 3,
                                               child: Column(
                                                 children: <Widget>[
                                                   Row(
@@ -220,7 +213,6 @@ class _CartPageState extends State<CartPage> {
 
                           if (index == cartData.length + 1) {
                             return Container(
-                                //height: screenHeight / 3,
                                 child: Card(
                               elevation: 5,
                               child: Column(
@@ -237,7 +229,6 @@ class _CartPageState extends State<CartPage> {
                                   Container(
                                       padding:
                                           EdgeInsets.fromLTRB(50, 0, 50, 0),
-                                      //color: Colors.red,
                                       child: Table(
                                           defaultColumnWidth:
                                               FlexColumnWidth(1.0),
@@ -245,7 +236,6 @@ class _CartPageState extends State<CartPage> {
                                             0: FlexColumnWidth(7),
                                             1: FlexColumnWidth(3),
                                           },
-                                          //border: TableBorder.all(color: Colors.white),
                                           children: [
                                             TableRow(children: [
                                               TableCell(
@@ -436,10 +426,7 @@ class _CartPageState extends State<CartPage> {
                                             ))),
                                     Container(
                                         width: screenWidth / 1.45,
-                                        //color: Colors.blue,
                                         child: Row(
-                                          //crossAxisAlignment: CrossAxisAlignment.center,
-                                          //mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
                                             Flexible(
                                               child: Column(
@@ -452,15 +439,6 @@ class _CartPageState extends State<CartPage> {
                                                         fontSize: 16,
                                                         color: Colors.white),
                                                     maxLines: 1,
-                                                  ),
-                                                  Text(
-                                                    "Available " +
-                                                        cartData[index]
-                                                            ['quantity'] +
-                                                        " unit",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                    ),
                                                   ),
                                                   Text(
                                                     "Your Quantity " +
@@ -484,12 +462,8 @@ class _CartPageState extends State<CartPage> {
                                                             },
                                                             child: Icon(
                                                               MdiIcons.plus,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      101,
-                                                                      255,
-                                                                      218,
-                                                                      50),
+                                                              color:
+                                                                  Colors.orange,
                                                             ),
                                                           ),
                                                           Text(
@@ -507,12 +481,8 @@ class _CartPageState extends State<CartPage> {
                                                             },
                                                             child: Icon(
                                                               MdiIcons.minus,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      101,
-                                                                      255,
-                                                                      218,
-                                                                      50),
+                                                              color:
+                                                                  Colors.orange,
                                                             ),
                                                           ),
                                                         ],
@@ -525,7 +495,7 @@ class _CartPageState extends State<CartPage> {
                                                       Text(
                                                           "Total RM " +
                                                               cartData[index]
-                                                                  ['yourprice'],
+                                                                  ['price'],
                                                           style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -538,11 +508,7 @@ class _CartPageState extends State<CartPage> {
                                                         },
                                                         child: Icon(
                                                           MdiIcons.delete,
-                                                          color: Color.fromRGBO(
-                                                              101,
-                                                              255,
-                                                              218,
-                                                              50),
+                                                          color: Colors.orange,
                                                         ),
                                                       ),
                                                     ],
@@ -573,7 +539,6 @@ class _CartPageState extends State<CartPage> {
       print(res.body);
       pr.dismiss();
       if (res.body == " Cart Empty") {
-        //Navigator.of(context).pop(false);
         widget.user.quantity = "0";
         Navigator.push(
             context,
@@ -587,7 +552,7 @@ class _CartPageState extends State<CartPage> {
         var extractdata = json.decode(res.body);
         cartData = extractdata["cart"];
         for (int i = 0; i < cartData.length; i++) {
-          _totalprice = double.parse(cartData[i]['yourprice']) + _totalprice;
+          _totalprice = double.parse(cartData[i]['price']) + _totalprice;
         }
         amountpayable = _totalprice;
 
@@ -697,7 +662,6 @@ class _CartPageState extends State<CartPage> {
           _homeDelivery = false;
           _updatePayment();
         } else {
-          //_homeDelivery = true;
           _updatePayment();
         }
       });
@@ -712,7 +676,6 @@ class _CartPageState extends State<CartPage> {
       });
 
   void _onHomeDelivery(bool newValue) {
-    //_getCurrentLocation();
     _getLocation();
     setState(() {
       _homeDelivery = newValue;
@@ -729,7 +692,6 @@ class _CartPageState extends State<CartPage> {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
     _currentPosition = await geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    //debugPrint('location: ${_currentPosition.latitude}');
     final coordinates =
         new Coordinates(_currentPosition.latitude, _currentPosition.longitude);
     var addresses =
@@ -752,7 +714,6 @@ class _CartPageState extends State<CartPage> {
       ..placemarkFromCoordinates(lat, lng);
     _currentPosition = await geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    //debugPrint('location: ${_currentPosition.latitude}');
     final coordinates = new Coordinates(lat, lng);
     var addresses =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
@@ -782,7 +743,7 @@ class _CartPageState extends State<CartPage> {
       if (_currentPosition.latitude == null) {
         Toast.show("Location not available. Please wait...", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-        _getLocation(); //_getCurrentLocation();
+        _getLocation();
         return;
       }
       _controller = Completer();
@@ -814,7 +775,6 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ),
                 titlePadding: EdgeInsets.all(5),
-                //content: Text(curaddress),
                 actions: <Widget>[
                   Text(
                     curaddress,
@@ -839,7 +799,6 @@ class _CartPageState extends State<CartPage> {
                   MaterialButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
-                    //minWidth: 200,
                     height: 30,
                     child: Text('Close'),
                     color: Colors.orange,
@@ -889,8 +848,6 @@ class _CartPageState extends State<CartPage> {
   Future<void> _newhomeLocation() async {
     gmcontroller = await _controller.future;
     gmcontroller.animateCamera(CameraUpdate.newCameraPosition(_home));
-    //Navigator.of(context).pop(false);
-    //_loadMapDialog();
   }
 
   void _updatePayment() {
@@ -898,7 +855,7 @@ class _CartPageState extends State<CartPage> {
     amountpayable = 0.0;
     setState(() {
       for (int i = 0; i < cartData.length; i++) {
-        _totalprice = double.parse(cartData[i]['yourprice']) + _totalprice;
+        _totalprice = double.parse(cartData[i]['price']) + _totalprice;
       }
       print(_selfPickup);
       if (_selfPickup) {

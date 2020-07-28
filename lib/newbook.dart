@@ -69,9 +69,7 @@ class _NewBookState extends State<NewBook> {
                           width: 3.0,
                           color: Colors.grey,
                         ),
-                        borderRadius: BorderRadius.all(Radius.circular(
-                                5.0) //         <--- border radius here
-                            ),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       ),
                     )),
                 SizedBox(height: 5),
@@ -80,7 +78,6 @@ class _NewBookState extends State<NewBook> {
                 SizedBox(height: 5),
                 Container(
                     width: screenWidth / 1.2,
-                    //height: screenHeight / 2,
                     child: Card(
                         elevation: 6,
                         child: Padding(
@@ -159,8 +156,6 @@ class _NewBookState extends State<NewBook> {
                                                     borderSide:
                                                         new BorderSide(),
                                                   ),
-
-                                                  //fillColor: Colors.green
                                                 )),
                                           ),
                                         ),
@@ -206,7 +201,6 @@ class _NewBookState extends State<NewBook> {
                                                     borderSide:
                                                         new BorderSide(),
                                                   ),
-                                                  //fillColor: Colors.green
                                                 )),
                                           ),
                                         ),
@@ -252,7 +246,6 @@ class _NewBookState extends State<NewBook> {
                                                     borderSide:
                                                         new BorderSide(),
                                                   ),
-                                                  //fillColor: Colors.green
                                                 )),
                                           ),
                                         ),
@@ -276,14 +269,12 @@ class _NewBookState extends State<NewBook> {
                                             child: Container(
                                               height: 40,
                                               child: DropdownButton(
-                                                //sorting dropdownoption
                                                 hint: Text(
                                                   'Type',
                                                   style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        101, 255, 218, 50),
+                                                    color: Colors.orange,
                                                   ),
-                                                ), // Not necessary for Option 1
+                                                ),
                                                 value: selectedType,
                                                 onChanged: (newValue) {
                                                   setState(() {
@@ -298,11 +289,7 @@ class _NewBookState extends State<NewBook> {
                                                         selectedType,
                                                         style: TextStyle(
                                                             color:
-                                                                Color.fromRGBO(
-                                                                    101,
-                                                                    255,
-                                                                    218,
-                                                                    50))),
+                                                                Colors.orange)),
                                                     value: selectedType,
                                                   );
                                                 }).toList(),
@@ -348,20 +335,9 @@ class _NewBookState extends State<NewBook> {
         aspectRatioPresets: Platform.isAndroid
             ? [
                 CropAspectRatioPreset.square,
-                //CropAspectRatioPreset.ratio3x2,
-                //CropAspectRatioPreset.original,
-                //CropAspectRatioPreset.ratio4x3,
-                //CropAspectRatioPreset.ratio16x9
               ]
             : [
-                //CropAspectRatioPreset.original,
                 CropAspectRatioPreset.square,
-                //CropAspectRatioPreset.ratio3x2,
-                //CropAspectRatioPreset.ratio4x3,
-                //CropAspectRatioPreset.ratio5x3,
-                //CropAspectRatioPreset.ratio5x4,
-                //CropAspectRatioPreset.ratio7x5,
-                //CropAspectRatioPreset.ratio16x9
               ],
         androidUiSettings: AndroidUiSettings(
             toolbarTitle: 'Cropper',
@@ -384,7 +360,6 @@ class _NewBookState extends State<NewBook> {
 
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.BARCODE);
@@ -392,10 +367,6 @@ class _NewBookState extends State<NewBook> {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -409,7 +380,6 @@ class _NewBookState extends State<NewBook> {
 
   Future<void> scanQR() async {
     String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.QR);
@@ -417,10 +387,6 @@ class _NewBookState extends State<NewBook> {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -457,7 +423,6 @@ class _NewBookState extends State<NewBook> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -470,7 +435,6 @@ class _NewBookState extends State<NewBook> {
           content:
               new Text("Are you sure?", style: TextStyle(color: Colors.white)),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text(
                 "Yes",
@@ -510,7 +474,7 @@ class _NewBookState extends State<NewBook> {
     String base64Image = base64Encode(_image.readAsBytesSync());
 
     http.post(server + "/php/insert_book.php", body: {
-      "bid": _scanBarcode,
+      "bkid": _scanBarcode,
       "bname": bnameEditingController.text,
       "quantity": qtyEditingController.text,
       "price": price.toStringAsFixed(2),
@@ -545,12 +509,8 @@ class _NewBookState extends State<NewBook> {
       context: context,
       color: Colors.white,
       position: RelativeRect.fromRect(
-          _tapPosition & Size(40, 40), // smaller rect, the touch area
-          Offset.zero & overlay.size // Bigger rect, the entire screen
-          ),
+          _tapPosition & Size(40, 40), Offset.zero & overlay.size),
       items: [
-        //onLongPress: () => _showPopupMenu(), //onLongTapCard(index),
-
         PopupMenuItem(
           child: GestureDetector(
               onTap: () => {Navigator.of(context).pop(), _onGetId()},
@@ -591,7 +551,6 @@ class _NewBookState extends State<NewBook> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -617,11 +576,9 @@ class _NewBookState extends State<NewBook> {
                     borderRadius: new BorderRadius.circular(5.0),
                     borderSide: new BorderSide(),
                   ),
-                  //fillColor: Colors.green
                 )),
           ),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text(
                 "Yes",

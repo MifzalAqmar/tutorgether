@@ -113,7 +113,6 @@ class _EditBookState extends State<EditBook> {
             SizedBox(height: 6),
             Container(
                 width: screenWidth / 1.2,
-                //height: screenHeight / 2,
                 child: Card(
                     elevation: 6,
                     child: Padding(
@@ -185,8 +184,6 @@ class _EditBookState extends State<EditBook> {
                                                         5.0),
                                                 borderSide: new BorderSide(),
                                               ),
-
-                                              //fillColor: Colors.green
                                             )),
                                       ),
                                     ),
@@ -226,7 +223,6 @@ class _EditBookState extends State<EditBook> {
                                                         5.0),
                                                 borderSide: new BorderSide(),
                                               ),
-                                              //fillColor: Colors.green
                                             )),
                                       ),
                                     ),
@@ -266,7 +262,6 @@ class _EditBookState extends State<EditBook> {
                                                         5.0),
                                                 borderSide: new BorderSide(),
                                               ),
-                                              //fillColor: Colors.green
                                             )),
                                       ),
                                     ),
@@ -288,14 +283,11 @@ class _EditBookState extends State<EditBook> {
                                         child: Container(
                                           height: 40,
                                           child: DropdownButton(
-                                            //sorting dropdownoption
                                             hint: Text(
                                               'Type',
                                               style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    101, 255, 218, 50),
-                                              ),
-                                            ), // Not necessary for Option 1
+                                                  color: Colors.orange),
+                                            ),
                                             value: selectedType,
                                             onChanged: (newValue) {
                                               setState(() {
@@ -307,11 +299,7 @@ class _EditBookState extends State<EditBook> {
                                               return DropdownMenuItem(
                                                 child: new Text(selectedType,
                                                     style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            101,
-                                                            255,
-                                                            218,
-                                                            50))),
+                                                        color: Colors.orange)),
                                                 value: selectedType,
                                               );
                                             }).toList(),
@@ -380,7 +368,6 @@ class _EditBookState extends State<EditBook> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -393,7 +380,6 @@ class _EditBookState extends State<EditBook> {
           content:
               new Text("Are you sure?", style: TextStyle(color: Colors.white)),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text(
                 "Yes",
@@ -450,7 +436,7 @@ class _EditBookState extends State<EditBook> {
     if (_image != null) {
       base64Image = base64Encode(_image.readAsBytesSync());
       http.post(server + "/php/update_book.php", body: {
-        "bid": widget.book.bid,
+        "bkid": widget.book.bid,
         "bname": bnameEditingController.text,
         "quantity": qtyEditingController.text,
         "price": price.toStringAsFixed(2),
@@ -473,7 +459,7 @@ class _EditBookState extends State<EditBook> {
       });
     } else {
       http.post(server + "/php/update_book.php", body: {
-        "bid": widget.book.bid,
+        "bkid": widget.book.bid,
         "bname": bnameEditingController.text,
         "quantity": qtyEditingController.text,
         "price": price.toStringAsFixed(2),

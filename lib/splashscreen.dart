@@ -77,11 +77,6 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
           if (animation.value > 0.99) {
             controller.stop();
             loadpref(this.context);
-
-            //Navigator.push(
-            // context,
-            // MaterialPageRoute(
-            //builder: (BuildContext context) => LoginPage()));
           }
         });
       });
@@ -98,10 +93,8 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
   Widget build(BuildContext context) {
     return new Center(
         child: new Container(
-      //width: 300,
       child: CircularProgressIndicator(
         value: animation.value,
-        //backgroundColor: Colors.brown,
         valueColor: new AlwaysStoppedAnimation<Color>(Colors.orange),
       ),
     ));
@@ -115,7 +108,6 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
     String pass = (prefs.getString('pass') ?? '');
     print("Splash:Preference" + email + "/" + pass);
     if (email.length > 5) {
-      //login with email and password
       loginUser(email, pass, ctx);
     } else {
       loginUser("unregistered", "123456789", ctx);
@@ -124,13 +116,11 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
 
   void loginUser(String email, String pass, BuildContext ctx) {
     http.post(
-            "https://tutorgether.000webhostapp.com/TutorGether/php/login_user.php",
-            body: {
+        "https://tutorgether.000webhostapp.com/TutorGether/php/login_user.php",
+        body: {
           "email": email,
           "password": pass,
-        })
-        //.timeout(const Duration(seconds: 4))
-        .then((res) {
+        }).then((res) {
       print(res.body);
       var string = res.body;
       List userdata = string.split(",");
@@ -151,11 +141,8 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
                       user: _user,
                     )));
       } else {
-        Toast.show(
-            "Fail to login with stored credential. Login as unregistered account.",
-            context,
-            duration: Toast.LENGTH_LONG,
-            gravity: Toast.BOTTOM);
+        Toast.show("Login as unregistered.", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         loginUser("unregistered@tutorgether.com", "123456789", ctx);
       }
     }).catchError((err) {

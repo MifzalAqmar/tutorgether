@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'loginpage.dart';
-import 'registeruser.dart';
 import 'user.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
@@ -33,9 +32,6 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     print("profile page");
-    // DefaultCacheManager manager = new DefaultCacheManager();
-    // manager.emptyCache();
-    //WidgetsBinding.instance.addPostFrameCallback((_) => _loadData());
   }
 
   @override
@@ -48,12 +44,16 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: Text('User Profile'),
       ),
-      body: Center(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/pofileback.jpg"),
+              fit: BoxFit.cover),
+        ),
         child: Column(
           children: <Widget>[
             SizedBox(height: 5),
             Card(
-              //color: Colors.red,
               elevation: 5,
               child: Padding(
                 padding: EdgeInsets.all(5),
@@ -87,7 +87,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 10),
                         Expanded(
                             child: Container(
-                          // color: Colors.red,
                           child: Table(
                               defaultColumnWidth: FlexColumnWidth(1.0),
                               columnWidths: {
@@ -200,7 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Column(
                           children: <Widget>[
                             Text(
-                              "Store Credit",
+                              "Store Credits",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
@@ -237,44 +236,47 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: <Widget>[
                   MaterialButton(
                     onPressed: changeName,
-                    child: Text("CHANGE YOUR NAME"),
+                    child: Text("CHANGE NAME"),
+                    color: Colors.black,
                   ),
                   Divider(
+                    color: Colors.orange,
                     height: 2,
                   ),
                   MaterialButton(
                     onPressed: changePassword,
-                    child: Text("CHANGE YOUR PASSWORD"),
+                    child: Text("CHANGE PASSWORD"),
+                    color: Colors.black,
                   ),
                   Divider(
+                    color: Colors.orange,
                     height: 2,
                   ),
                   MaterialButton(
                     onPressed: changePhone,
-                    child: Text("CHANGE YOUR PHONE"),
+                    child: Text("CHANGE PHONE NUMBER"),
+                    color: Colors.black,
                   ),
                   Divider(
-                    height: 2,
-                  ),
-                  MaterialButton(
-                    onPressed: _gotologinPage,
-                    child: Text("GO LOGIN PAGE"),
-                  ),
-                  Divider(
-                    height: 2,
-                  ),
-                  MaterialButton(
-                    onPressed: _registerAccount,
-                    child: Text("REGISTER NEW ACCOUNT"),
-                  ),
-                  Divider(
+                    color: Colors.orange,
                     height: 2,
                   ),
                   MaterialButton(
                     onPressed: buyStoreCredit,
-                    child: Text("BUY STORE CREDIT"),
+                    child: Text("BUY CREDITS"),
+                    color: Colors.black,
                   ),
                   Divider(
+                    color: Colors.orange,
+                    height: 2,
+                  ),
+                  MaterialButton(
+                    onPressed: _gotologinPage,
+                    child: Text("LOGOUT"),
+                    color: Colors.black,
+                  ),
+                  Divider(
+                    color: Colors.orange,
                     height: 2,
                   ),
                 ])),
@@ -286,13 +288,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _takePicture() async {
     if (widget.user.email == "unregistered") {
-      Toast.show("Please register to use this function", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
     File _image = await ImagePicker.pickImage(
         source: ImageSource.camera, maxHeight: 400, maxWidth: 300);
-    //print(_image.lengthSync());
     if (_image == null) {
       Toast.show("Please take image first", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -322,12 +323,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changeName() {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use this function", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
     if (widget.user.email == "admin@tutorgether.com") {
-      Toast.show("Admin Mode!!!", context,
+      Toast.show("In Admin mode.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -381,7 +382,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   _changeName(String name) {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use this function", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -414,7 +415,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changePassword() {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use this function", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -515,7 +516,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changePhone() {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use this function", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -594,17 +595,15 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _gotologinPage() {
-    // flutter defined function
     print(widget.user.name);
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           title: new Text(
-            "Go to login page?",
+            "Do you want to Logout?",
             style: TextStyle(
               color: Colors.white,
             ),
@@ -616,7 +615,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text(
                 "Yes",
@@ -649,66 +647,9 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void _registerAccount() {
-    // flutter defined function
-    print(widget.user.name);
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          title: new Text(
-            "Register new account?",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          content: new Text(
-            "Are you sure?",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text(
-                "Yes",
-                style: TextStyle(
-                  color: Colors.orange,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => RegisterUser()));
-              },
-            ),
-            new FlatButton(
-              child: new Text(
-                "No",
-                style: TextStyle(
-                  color: Colors.orange,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void buyStoreCredit() {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use this function", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -801,7 +742,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 "Ok",
                 style: TextStyle(
-                  color: Color.fromRGBO(101, 255, 218, 50),
+                  color: Colors.orange,
                 ),
               )),
           MaterialButton(
@@ -812,7 +753,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 "Cancel",
                 style: TextStyle(
-                  color: Color.fromRGBO(101, 255, 218, 50),
+                  color: Colors.orange,
                 ),
               )),
         ],

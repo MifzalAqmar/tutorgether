@@ -73,8 +73,6 @@ class _AdminBookState extends State<AdminBook> {
               });
             },
           ),
-
-          //
         ],
       ),
       body: Container(
@@ -98,7 +96,6 @@ class _AdminBookState extends State<AdminBook> {
                                     color: Colors.orange,
                                     padding: EdgeInsets.all(10.0),
                                     child: Column(
-                                      // Replace with a Row for horizontal icon + text
                                       children: <Widget>[
                                         Icon(MdiIcons.update,
                                             color: Colors.black),
@@ -120,7 +117,6 @@ class _AdminBookState extends State<AdminBook> {
                                     color: Colors.orange,
                                     padding: EdgeInsets.all(10.0),
                                     child: Column(
-                                      // Replace with a Row for horizontal icon + text
                                       children: <Widget>[
                                         Icon(
                                           MdiIcons.beer,
@@ -144,7 +140,6 @@ class _AdminBookState extends State<AdminBook> {
                                     color: Colors.orange,
                                     padding: EdgeInsets.all(10.0),
                                     child: Column(
-                                      // Replace with a Row for horizontal icon + text
                                       children: <Widget>[
                                         Icon(
                                           MdiIcons.rice,
@@ -168,7 +163,6 @@ class _AdminBookState extends State<AdminBook> {
                                     color: Colors.orange,
                                     padding: EdgeInsets.all(10.0),
                                     child: Column(
-                                      // Replace with a Row for horizontal icon + text
                                       children: <Widget>[
                                         Icon(
                                           MdiIcons.foodVariant,
@@ -192,7 +186,6 @@ class _AdminBookState extends State<AdminBook> {
                                     color: Colors.orange,
                                     padding: EdgeInsets.all(10.0),
                                     child: Column(
-                                      // Replace with a Row for horizontal icon + text
                                       children: <Widget>[
                                         Icon(
                                           MdiIcons.bookInformationVariant,
@@ -216,7 +209,6 @@ class _AdminBookState extends State<AdminBook> {
                                     color: Colors.orange,
                                     padding: EdgeInsets.all(10.0),
                                     child: Column(
-                                      // Replace with a Row for horizontal icon + text
                                       children: <Widget>[
                                         Icon(
                                           MdiIcons.bookMinus,
@@ -237,7 +229,6 @@ class _AdminBookState extends State<AdminBook> {
                                     color: Colors.orange,
                                     padding: EdgeInsets.all(10.0),
                                     child: Column(
-                                      // Replace with a Row for horizontal icon + text
                                       children: <Widget>[
                                         Icon(
                                           MdiIcons.ornament,
@@ -352,15 +343,6 @@ class _AdminBookState extends State<AdminBook> {
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white),
                                             ),
-                                            Text(
-                                              "Avail/Sold:" +
-                                                  bookdata[index]['quantity'] +
-                                                  "/" +
-                                                  bookdata[index]['sold'],
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
                                           ],
                                         ),
                                       ))));
@@ -379,13 +361,8 @@ class _AdminBookState extends State<AdminBook> {
           SpeedDialChild(
               child: Icon(MdiIcons.barcodeScan),
               label: "Scan Book",
-              labelBackgroundColor: Colors.white, //_changeLocality()
+              labelBackgroundColor: Colors.white,
               onTap: () => scanBookDialog()),
-          SpeedDialChild(
-              child: Icon(Icons.report),
-              label: "Book Report",
-              labelBackgroundColor: Colors.white, //_changeLocality()
-              onTap: () => null),
         ],
       ),
     );
@@ -395,7 +372,6 @@ class _AdminBookState extends State<AdminBook> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -433,7 +409,6 @@ class _AdminBookState extends State<AdminBook> {
 
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.BARCODE);
@@ -441,10 +416,6 @@ class _AdminBookState extends State<AdminBook> {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -461,7 +432,7 @@ class _AdminBookState extends State<AdminBook> {
   void _loadSingleBook(String bid) {
     String urlLoadJobs = server + "/php/load_books.php";
     http.post(urlLoadJobs, body: {
-      "bid": bid,
+      "bkid": bid,
     }).then((res) {
       print(res.body);
       if (res.body == " nodata") {
@@ -481,7 +452,6 @@ class _AdminBookState extends State<AdminBook> {
 
   Future<void> scanQR() async {
     String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.QR);
@@ -489,10 +459,6 @@ class _AdminBookState extends State<AdminBook> {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -605,7 +571,7 @@ class _AdminBookState extends State<AdminBook> {
 
   gotoCart() {
     if (widget.user.email == "unregistered") {
-      Toast.show("Please register to use...", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     } else {
@@ -624,7 +590,6 @@ class _AdminBookState extends State<AdminBook> {
         bid: bookdata[index]['id'],
         name: bookdata[index]['name'],
         price: bookdata[index]['price'],
-        quantity: bookdata[index]['quantity'],
         type: bookdata[index]['type'],
         date: bookdata[index]['date']);
     await Navigator.push(
@@ -644,12 +609,8 @@ class _AdminBookState extends State<AdminBook> {
       context: context,
       color: Colors.white,
       position: RelativeRect.fromRect(
-          _tapPosition & Size(40, 40), // smaller rect, the touch area
-          Offset.zero & overlay.size // Bigger rect, the entire screen
-          ),
+          _tapPosition & Size(40, 40), Offset.zero & overlay.size),
       items: [
-        //onLongPress: () => _showPopupMenu(), //onLongTapCard(index),
-
         PopupMenuItem(
           child: GestureDetector(
               onTap: () => {Navigator.of(context).pop(), _onBookDetail(index)},
@@ -682,7 +643,6 @@ class _AdminBookState extends State<AdminBook> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -695,7 +655,6 @@ class _AdminBookState extends State<AdminBook> {
           content:
               new Text("Are you sure?", style: TextStyle(color: Colors.white)),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text(
                 "Yes",
@@ -731,7 +690,7 @@ class _AdminBookState extends State<AdminBook> {
     pr.style(message: "Deleting book...");
     pr.show();
     String bid = bookdata[index]['id'];
-    print("bid:" + bid);
+    print("bkid:" + bid);
     http.post(server + "/php/delete_book.php", body: {
       "bkid": bid,
     }).then((res) {

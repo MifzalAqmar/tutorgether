@@ -188,7 +188,6 @@ class _RegisterUserState extends State<RegisterUser> {
 
   Widget pageTitle() {
     return Container(
-      //color: Color.fromRGBO(255, 200, 200, 200),
       margin: EdgeInsets.only(top: 60),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -250,16 +249,13 @@ class _RegisterUserState extends State<RegisterUser> {
   void _onChange(bool value) {
     setState(() {
       _isChecked = value;
-      //savepref(value);
     });
   }
 
   void _showEULA() {
-    // flutter defined function
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           title: new Text("EULA"),
           content: new Container(
@@ -275,20 +271,16 @@ class _RegisterUserState extends State<RegisterUser> {
                         text: TextSpan(
                             style: TextStyle(
                               color: Colors.black,
-                              //fontWeight: FontWeight.w500,
                               fontSize: 12.0,
                             ),
                             text:
-                                "This End-User License Agreement is a legal agreement between you and TutorGether This EULA agreement governs your acquisition and use of our TutorGether software (Software) directly from TutorGether or indirectly through a TutorGether authorized reseller or distributor (a Reseller).Please read this EULA agreement carefully before completing the installation process and using the TutorGether software. It provides a license to use the TutorGether software and contains warranty information and liability disclaimers. If you register for a free trial of the TutorGether software, this EULA agreement will also govern that trial. By clicking accept or installing and/or using the TutorGether software, you are confirming your acceptance of the Software and agreeing to become bound by the terms of this EULA agreement. If you are entering into this EULA agreement on behalf of a company or other legal entity, you represent that you have the authority to bind such entity and its affiliates to these terms and conditions. If you do not have such authority or if you do not agree with the terms and conditions of this EULA agreement, do not install or use the Software, and you must not accept this EULA agreement.This EULA agreement shall apply only to the Software supplied by TutorGether herewith regardless of whether other software is referred to or described herein. The terms also apply to any TutorGether updates, supplements, Internet-based services, and support services for the Software, unless other terms accompany those items on delivery. If so, those terms apply. This EULA was created by EULA Template for TutorGether. TutorGether shall at all times retain ownership of the Software as originally downloaded by you and all subsequent downloads of the Software by you. The Software (and the copyright, and other intellectual property rights of whatever nature in the Software, including any modifications made thereto) are and shall remain the property of TutorGether. TutorGether reserves the right to grant licences to use the Software to third parties"
-                            //children: getSpan(),
-                            )),
+                                "This End-User License Agreement is a legal agreement between you and TutorGether This EULA agreement governs your acquisition and use of our TutorGether software (Software) directly from TutorGether or indirectly through a TutorGether authorized reseller or distributor (a Reseller).Please read this EULA agreement carefully before completing the installation process and using the TutorGether software. It provides a license to use the TutorGether software and contains warranty information and liability disclaimers. If you register for a free trial of the TutorGether software, this EULA agreement will also govern that trial. By clicking accept or installing and/or using the TutorGether software, you are confirming your acceptance of the Software and agreeing to become bound by the terms of this EULA agreement. If you are entering into this EULA agreement on behalf of a company or other legal entity, you represent that you have the authority to bind such entity and its affiliates to these terms and conditions. If you do not have such authority or if you do not agree with the terms and conditions of this EULA agreement, do not install or use the Software, and you must not accept this EULA agreement.This EULA agreement shall apply only to the Software supplied by TutorGether herewith regardless of whether other software is referred to or described herein. The terms also apply to any TutorGether updates, supplements, Internet-based services, and support services for the Software, unless other terms accompany those items on delivery. If so, those terms apply. This EULA was created by EULA Template for TutorGether. TutorGether shall at all times retain ownership of the Software as originally downloaded by you and all subsequent downloads of the Software by you. The Software (and the copyright, and other intellectual property rights of whatever nature in the Software, including any modifications made thereto) are and shall remain the property of TutorGether. TutorGether reserves the right to grant licences to use the Software to third parties")),
                   ),
                 )
               ],
             ),
           ),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Close"),
               onPressed: () {

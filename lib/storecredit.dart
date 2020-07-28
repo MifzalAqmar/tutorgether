@@ -20,7 +20,6 @@ class _StoreCreditPageState extends State<StoreCreditPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('BUY CREDITS'),
-          //backgroundColor: Colors.orange,
         ),
         body: Column(
           children: <Widget>[

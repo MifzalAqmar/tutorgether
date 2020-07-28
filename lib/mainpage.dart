@@ -90,6 +90,11 @@ class _MainPageState extends State<MainPage> {
                 await refreshList();
               },
               child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/mainpage2.jpg"),
+                      fit: BoxFit.cover),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -111,7 +116,6 @@ class _MainPageState extends State<MainPage> {
                                             color: Colors.orange,
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
-                                              // Replace with a Row for horizontal icon + text
                                               children: <Widget>[
                                                 Icon(MdiIcons.update,
                                                     color: Colors.black),
@@ -135,7 +139,6 @@ class _MainPageState extends State<MainPage> {
                                             color: Colors.orange,
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
-                                              // Replace with a Row for horizontal icon + text
                                               children: <Widget>[
                                                 Icon(
                                                   MdiIcons.book,
@@ -161,7 +164,6 @@ class _MainPageState extends State<MainPage> {
                                             color: Colors.orange,
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
-                                              // Replace with a Row for horizontal icon + text
                                               children: <Widget>[
                                                 Icon(
                                                   MdiIcons.bookAccount,
@@ -187,7 +189,6 @@ class _MainPageState extends State<MainPage> {
                                             color: Colors.orange,
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
-                                              // Replace with a Row for horizontal icon + text
                                               children: <Widget>[
                                                 Icon(
                                                   MdiIcons.bookAccountOutline,
@@ -213,7 +214,6 @@ class _MainPageState extends State<MainPage> {
                                             color: Colors.orange,
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
-                                              // Replace with a Row for horizontal icon + text
                                               children: <Widget>[
                                                 Icon(
                                                   MdiIcons
@@ -239,7 +239,6 @@ class _MainPageState extends State<MainPage> {
                                             color: Colors.orange,
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
-                                              // Replace with a Row for horizontal icon + text
                                               children: <Widget>[
                                                 Icon(
                                                   MdiIcons.ornament,
@@ -404,11 +403,11 @@ class _MainPageState extends State<MainPage> {
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () async {
               if (widget.user.email == "unregistered@tutorgether.com") {
-                Toast.show("Please register to use this function", context,
+                Toast.show("Please register first.", context,
                     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                 return;
               } else if (widget.user.email == "admin@tutorgether.com") {
-                Toast.show("Admin mode!!!", context,
+                Toast.show("In Admin mode.", context,
                     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                 return;
               } else if (widget.user.quantity == " 0") {
@@ -452,7 +451,6 @@ class _MainPageState extends State<MainPage> {
                       height: screenWidth / 1.5,
                       width: screenWidth / 1.5,
                       decoration: BoxDecoration(
-                          //border: Border.all(color: Colors.black),
                           image: DecorationImage(
                               fit: BoxFit.scaleDown,
                               image: NetworkImage(server +
@@ -626,7 +624,7 @@ class _MainPageState extends State<MainPage> {
 
   _addtocartdialog(int index) {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use...", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -646,7 +644,7 @@ class _MainPageState extends State<MainPage> {
               title: new Text(
                 "Add " + bookdata[index]['name'] + " to Cart?",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
               content: Column(
@@ -655,7 +653,7 @@ class _MainPageState extends State<MainPage> {
                   Text(
                     "Select quantity of book",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                   Row(
@@ -680,7 +678,7 @@ class _MainPageState extends State<MainPage> {
                           Text(
                             quantity.toString(),
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                           FlatButton(
@@ -738,7 +736,7 @@ class _MainPageState extends State<MainPage> {
 
   void _addtoCart(int index) {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use...", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -760,7 +758,7 @@ class _MainPageState extends State<MainPage> {
         String urlLoadJobs = server + "/php/insert_cart.php";
         http.post(urlLoadJobs, body: {
           "email": widget.user.email,
-          "bid": bookdata[index]["id"],
+          "bkid": bookdata[index]["id"],
           "quantity": quantity.toString(),
         }).then((res) {
           print(res.body);
@@ -885,7 +883,7 @@ class _MainPageState extends State<MainPage> {
 
   gotoCart() async {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use...", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     } else if (widget.user.email == "admin@tutorgether.com") {
@@ -955,7 +953,7 @@ class _MainPageState extends State<MainPage> {
 
   void _paymentPage() {
     if (widget.user.email == "unregistered@tutorgether.com") {
-      Toast.show("Please register to use...", context,
+      Toast.show("Please register first.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     } else if (widget.user.email == "admin@tutorgether.com") {
@@ -974,7 +972,6 @@ class _MainPageState extends State<MainPage> {
 
   Future<Null> refreshList() async {
     await Future.delayed(Duration(seconds: 2));
-    //_getLocation();
     _loadData();
     return null;
   }

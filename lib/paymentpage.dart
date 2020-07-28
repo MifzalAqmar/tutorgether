@@ -20,7 +20,6 @@ class _PaymentPageState extends State<PaymentPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('PAYMENT'),
-          // backgroundColor: Colors.deepOrange,
         ),
         body: Column(
           children: <Widget>[

@@ -197,7 +197,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget pageTitle() {
     return Container(
-      //color: Color.fromRGBO(255, 200, 200, 200),
       margin: EdgeInsets.only(top: 60),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,9 +230,7 @@ class _LoginPageState extends State<LoginPage> {
       http.post(urlLogin, body: {
         "email": _email,
         "password": _password,
-      })
-          //.timeout(const Duration(seconds: 4))
-          .then((res) {
+      }).then((res) {
         print(res.body);
         var string = res.body;
         List userdata = string.split(",");
@@ -275,11 +272,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void _forgotPassword() {
     TextEditingController phoneController = TextEditingController();
-    // flutter defined function
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           title: new Text(
             "Forgot Password?",
@@ -309,7 +304,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text(
                 "Yes",
@@ -414,13 +408,11 @@ class _LoginPageState extends State<LoginPage> {
     String password = _passEditingController.text;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (value) {
-      //save preference
       await prefs.setString('email', email);
       await prefs.setString('pass', password);
       Toast.show("Preferences have been saved", context,
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     } else {
-      //delete preference
       await prefs.setString('email', '');
       await prefs.setString('pass', '');
       setState(() {
